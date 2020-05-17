@@ -5,7 +5,7 @@ import { IUsersRepository } from '@modules/users/repositories';
 import User from '@modules/users/infra/typeorm/entities/user';
 
 @EntityRepository(User)
-export class UsersRepository implements IUsersRepository {
+class UsersRepository implements IUsersRepository {
   private orm: Repository<User>;
 
   constructor() {

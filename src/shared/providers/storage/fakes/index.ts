@@ -1,1 +1,1 @@
-export { default, default as StorageFake } from './storage';
+export { default, default as StorageFakeProvider } from './storage';

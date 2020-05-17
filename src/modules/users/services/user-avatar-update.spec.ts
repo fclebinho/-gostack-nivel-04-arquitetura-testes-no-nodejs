@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { StorageFake } from '@shared/providers';
+import { StorageFakeProvider } from '@shared/providers';
 import { UsersRepositoryFake } from '@modules/users/repositories';
 import { UserAvatarUpdateService } from '@modules/users/services';
 
@@ -9,7 +9,7 @@ import { ApplicationError } from '@shared/errors/application-error';
 describe('UserAvatarUpdate', () => {
   it('should be able to update avatar', async () => {
     const repository = new UsersRepositoryFake();
-    const storage = new StorageFake();
+    const storage = new StorageFakeProvider();
     const service = new UserAvatarUpdateService(repository, storage);
 
     const user = await repository.create({
@@ -28,10 +28,10 @@ describe('UserAvatarUpdate', () => {
 
   it('should be able to update avatar when non exists user', async () => {
     const repository = new UsersRepositoryFake();
-    const storage = new StorageFake();
+    const storage = new StorageFakeProvider();
     const service = new UserAvatarUpdateService(repository, storage);
 
-    expect(
+    await expect(
       service.execute({
         user_id: 'non-existing-user',
         avatar_file_name: 'avatar.jpg',
@@ -41,7 +41,7 @@ describe('UserAvatarUpdate', () => {
 
   it('should delete old avatar when updating new one', async () => {
     const repository = new UsersRepositoryFake();
-    const storage = new StorageFake();
+    const storage = new StorageFakeProvider();
     const service = new UserAvatarUpdateService(repository, storage);
 
     const deleteFile = jest.spyOn(storage, 'delete');

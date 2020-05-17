@@ -1,1 +1,2 @@
-export { default, default as UsersRepositoryFake } from './users';
+export { default as UsersRepositoryFake } from './users';
+export { default as UserTokensRepositoryFake } from './user-tokens';

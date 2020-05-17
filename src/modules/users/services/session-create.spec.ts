@@ -44,7 +44,7 @@ describe('SessionCreate', () => {
       password: '123456',
     });
 
-    expect(
+    await expect(
       service.execute({
         email: 'invalid@mail.com',
         password: '123456',
@@ -65,7 +65,7 @@ describe('SessionCreate', () => {
       password: '123456',
     });
 
-    expect(
+    await expect(
       service.execute({
         email: 'johndoe@mail.com',
         password: '654321',
