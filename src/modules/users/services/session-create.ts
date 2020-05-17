@@ -1,8 +1,8 @@
-import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { injectable, inject } from 'tsyringe';
 
-import { IUsersRepository } from '@modules/users/repositories/users-repository';
+import { IHashProvider } from '@modules/users/providers';
+import { IUsersRepository } from '@modules/users/repositories';
 import { ApplicationError } from '@shared/errors/application-error';
 import authConfig from '@config/authentication';
 import User from '@modules/users/infra/typeorm/entities/user';
@@ -22,6 +22,8 @@ class SessionCreate {
   constructor(
     @inject('UsersRepository')
     private repository: IUsersRepository,
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute({
@@ -34,7 +36,11 @@ class SessionCreate {
       throw new ApplicationError('Incorrect email/password combination.', 401);
     }
 
-    const passwordMatched = await compare(password, user.password);
+    const passwordMatched = await this.hashProvider.compare(
+      password,
+      user.password,
+    );
+
     if (!passwordMatched) {
       throw new ApplicationError('Incorrect email/password combination.', 401);
     }

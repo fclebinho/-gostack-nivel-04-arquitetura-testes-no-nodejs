@@ -1,7 +1,7 @@
 import { EntityRepository, Repository, getRepository } from 'typeorm';
 
 import { IUserCreateDTO } from '@modules/users/dtos/user-create';
-import { IUsersRepository } from '@modules/users/repositories/users-repository';
+import { IUsersRepository } from '@modules/users/repositories';
 import User from '@modules/users/infra/typeorm/entities/user';
 
 @EntityRepository(User)
