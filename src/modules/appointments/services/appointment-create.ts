@@ -1,4 +1,5 @@
 import { startOfHour } from 'date-fns';
+import { inject, injectable } from 'tsyringe';
 
 import { IAppointmentRepository } from '@modules/appointments/repositories/appointment-repository';
 import { ApplicationError } from '@shared/errors/application-error';
@@ -9,8 +10,12 @@ export interface IAppointmentRequest {
   date: Date;
 }
 
-export class AppointmentCreateService {
-  constructor(private repository: IAppointmentRepository) {}
+@injectable()
+class AppointmentCreate {
+  constructor(
+    @inject('AppointmentRepository')
+    private repository: IAppointmentRepository,
+  ) {}
 
   public async execute({
     provider_id,
@@ -35,4 +40,4 @@ export class AppointmentCreateService {
   }
 }
 
-export default AppointmentCreateService;
+export default AppointmentCreate;
