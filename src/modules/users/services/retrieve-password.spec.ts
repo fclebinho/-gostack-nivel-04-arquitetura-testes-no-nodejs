@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
 import { RetrievePasswordService } from '@modules/users/services';
-import { MailFakeProvider } from '@shared/providers';
+import { MailFakeProvider } from '@shared/providers/mail';
 import {
   UsersRepositoryFake,
   UserTokensRepositoryFake,

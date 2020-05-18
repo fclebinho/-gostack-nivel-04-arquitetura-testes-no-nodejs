@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { StorageFakeProvider } from '@shared/providers';
+import { StorageFakeProvider } from '@shared/providers/storage';
 import { UsersRepositoryFake } from '@modules/users/repositories';
 import { UserAvatarUpdateService } from '@modules/users/services';
 

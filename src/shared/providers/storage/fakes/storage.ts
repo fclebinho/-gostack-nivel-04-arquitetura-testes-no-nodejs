@@ -1,4 +1,4 @@
-import { IStorageProvider } from '@shared/providers';
+import { IStorageProvider } from '@shared/providers/storage';
 
 class Storage implements IStorageProvider {
   private storage: string[] = [];

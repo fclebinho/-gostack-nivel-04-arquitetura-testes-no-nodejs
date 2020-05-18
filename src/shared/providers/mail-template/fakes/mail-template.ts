@@ -1,10 +1,7 @@
-import {
-  IMailTemplate,
-  IMailTemplateParseDTO,
-} from '@shared/providers/mail-template';
+import { IMailTemplateProvider } from '@shared/providers/mail-template';
 
-export default class MailTemplateFake implements IMailTemplate {
-  public async parse({ template }: IMailTemplateParseDTO): Promise<string> {
-    return template;
+export default class MailTemplateFake implements IMailTemplateProvider {
+  public async parse(): Promise<string> {
+    return 'No content';
   }
 }

@@ -3,6 +3,6 @@ interface IVariableTemplate {
 }
 
 export default interface IMailTemplateParse {
-  template: string;
+  file: string;
   variables: IVariableTemplate;
 }
