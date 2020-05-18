@@ -1,3 +1,5 @@
+import { ISendMailDTO } from '@shared/providers/mail';
+
 export default interface IMail {
-  send(to: string, body: string): Promise<void>;
+  send(data: ISendMailDTO): Promise<void>;
 }

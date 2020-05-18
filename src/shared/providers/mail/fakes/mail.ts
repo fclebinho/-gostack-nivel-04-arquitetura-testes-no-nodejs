@@ -1,18 +1,10 @@
-import { IMailProvider } from '@shared/providers';
-
-interface IMessage {
-  to: string;
-  body: string;
-}
+import { IMailProvider, ISendMailDTO } from '@shared/providers/mail';
 
 class Mail implements IMailProvider {
-  private messages: IMessage[] = [];
+  private messages: ISendMailDTO[] = [];
 
-  public async send(to: string, body: string): Promise<void> {
-    this.messages.push({
-      to,
-      body,
-    });
+  public async send(message: ISendMailDTO): Promise<void> {
+    this.messages.push(message);
   }
 }
 

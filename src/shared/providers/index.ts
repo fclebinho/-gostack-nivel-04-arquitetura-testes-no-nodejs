@@ -7,15 +7,22 @@ import {
 
 import { IMailProvider, EtherealMailProvider } from '@shared/providers/mail';
 
+import {
+  IMailTemplateProvider,
+  HandlebarsMailTemplateProvider,
+} from '@shared/providers/mail-template';
+
 container.registerSingleton<IStorageProvider>(
   'StorageProvider',
   DiskStorageProvider,
 );
 
-container.registerInstance<IMailProvider>(
-  'MailProvider',
-  new EtherealMailProvider(),
+container.registerSingleton<IMailTemplateProvider>(
+  'MailTemplateProvider',
+  HandlebarsMailTemplateProvider,
 );
 
-export * from './storage';
-export * from './mail';
+container.registerInstance<IMailProvider>(
+  'MailProvider',
+  container.resolve(EtherealMailProvider),
+);

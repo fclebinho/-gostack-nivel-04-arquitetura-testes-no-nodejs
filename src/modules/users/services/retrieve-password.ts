@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
-import { IMailProvider } from '@shared/providers';
+import { IMailProvider } from '@shared/providers/mail';
 import {
   IUsersRepository,
   IUserTokensRepository,
@@ -33,10 +33,17 @@ class RetrievePassword {
 
     const { token } = await this.userTokensRepository.generate(user.id);
 
-    await this.mailProvider.send(
-      email,
-      `Pedido de recuperação de senha recebido: ${token}`,
-    );
+    await this.mailProvider.send({
+      to: {
+        name: user.name,
+        email: user.email,
+      },
+      subject: '[GoBarber] Recuperação de senha',
+      content: {
+        template: 'Olá, {{name}}: {{token}}',
+        variables: { name: user.name, token },
+      },
+    });
   }
 }
 
