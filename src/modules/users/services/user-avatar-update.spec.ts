@@ -6,19 +6,28 @@ import { UserAvatarUpdateService } from '@modules/users/services';
 
 import { ApplicationError } from '@shared/errors/application-error';
 
-describe('UserAvatarUpdate', () => {
-  it('should be able to update avatar', async () => {
-    const repository = new UsersRepositoryFake();
-    const storage = new StorageFakeProvider();
-    const service = new UserAvatarUpdateService(repository, storage);
+let usersRepository: UsersRepositoryFake;
+let storageProvider: StorageFakeProvider;
+let userAvatarUpdateService: UserAvatarUpdateService;
 
-    const user = await repository.create({
+describe('UserAvatarUpdate', () => {
+  beforeEach(() => {
+    usersRepository = new UsersRepositoryFake();
+    storageProvider = new StorageFakeProvider();
+    userAvatarUpdateService = new UserAvatarUpdateService(
+      usersRepository,
+      storageProvider,
+    );
+  });
+
+  it('should be able to update avatar', async () => {
+    const user = await usersRepository.create({
       name: 'John Doe',
       email: 'johndoe@mail.com',
       password: '123456',
     });
 
-    await service.execute({
+    await userAvatarUpdateService.execute({
       user_id: user.id,
       avatar_file_name: 'avatar.jpg',
     });
@@ -27,12 +36,8 @@ describe('UserAvatarUpdate', () => {
   });
 
   it('should be able to update avatar when non exists user', async () => {
-    const repository = new UsersRepositoryFake();
-    const storage = new StorageFakeProvider();
-    const service = new UserAvatarUpdateService(repository, storage);
-
     await expect(
-      service.execute({
+      userAvatarUpdateService.execute({
         user_id: 'non-existing-user',
         avatar_file_name: 'avatar.jpg',
       }),
@@ -40,24 +45,20 @@ describe('UserAvatarUpdate', () => {
   });
 
   it('should delete old avatar when updating new one', async () => {
-    const repository = new UsersRepositoryFake();
-    const storage = new StorageFakeProvider();
-    const service = new UserAvatarUpdateService(repository, storage);
+    const deleteFile = jest.spyOn(storageProvider, 'delete');
 
-    const deleteFile = jest.spyOn(storage, 'delete');
-
-    const user = await repository.create({
+    const user = await usersRepository.create({
       name: 'John Doe',
       email: 'johndoe@mail.com',
       password: '123456',
     });
 
-    await service.execute({
+    await userAvatarUpdateService.execute({
       user_id: user.id,
       avatar_file_name: 'avatar.jpg',
     });
 
-    await service.execute({
+    await userAvatarUpdateService.execute({
       user_id: user.id,
       avatar_file_name: 'avatar2.jpg',
     });

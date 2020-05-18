@@ -6,13 +6,19 @@ import { UsersRepositoryFake } from '@modules/users/repositories';
 
 import { ApplicationError } from '@shared/errors/application-error';
 
-describe('UserCreate', () => {
-  it('should be able to create a new user', async () => {
-    const hash = new HashProviderFake();
-    const repository = new UsersRepositoryFake();
-    const service = new UserCreateService(repository, hash);
+let hashProvider: HashProviderFake;
+let usersRepository: UsersRepositoryFake;
+let userCreateService: UserCreateService;
 
-    const user = await service.execute({
+describe('UserCreate', () => {
+  beforeEach(() => {
+    hashProvider = new HashProviderFake();
+    usersRepository = new UsersRepositoryFake();
+    userCreateService = new UserCreateService(usersRepository, hashProvider);
+  });
+
+  it('should be able to create a new user', async () => {
+    const user = await userCreateService.execute({
       name: 'John Doe',
       email: 'johndoe@mail.com',
       password: '123123',
@@ -22,18 +28,14 @@ describe('UserCreate', () => {
   });
 
   it('should not be able to create a new user on then same email', async () => {
-    const hash = new HashProviderFake();
-    const repository = new UsersRepositoryFake();
-    const service = new UserCreateService(repository, hash);
-
-    await service.execute({
+    await userCreateService.execute({
       name: 'John Doe',
       email: 'johndoe@mail.com',
       password: '123123',
     });
 
     await expect(
-      service.execute({
+      userCreateService.execute({
         name: 'John Doe',
         email: 'johndoe@mail.com',
         password: '123123',
