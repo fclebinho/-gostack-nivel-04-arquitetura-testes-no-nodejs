@@ -1,1 +1,1 @@
-export { default, default as SendMailProvider } from './send-mail';
+export { default, default as EtherealMailProvider } from './ethereal-mail';

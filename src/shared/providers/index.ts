@@ -5,14 +5,17 @@ import {
   DiskStorageProvider,
 } from '@shared/providers/storage';
 
-import { IMailProvider, SendMailProvider } from '@shared/providers/mail';
+import { IMailProvider, EtherealMailProvider } from '@shared/providers/mail';
 
 container.registerSingleton<IStorageProvider>(
   'StorageProvider',
   DiskStorageProvider,
 );
 
-container.registerSingleton<IMailProvider>('MailProvider', SendMailProvider);
+container.registerInstance<IMailProvider>(
+  'MailProvider',
+  new EtherealMailProvider(),
+);
 
 export * from './storage';
 export * from './mail';

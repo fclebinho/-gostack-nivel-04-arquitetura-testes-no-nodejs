@@ -31,9 +31,12 @@ class RetrievePassword {
       throw new ApplicationError('User not exists');
     }
 
-    await this.userTokensRepository.generate(user.id);
+    const { token } = await this.userTokensRepository.generate(user.id);
 
-    this.mailProvider.send(email, 'Pedido de recuperação de senha recebido');
+    await this.mailProvider.send(
+      email,
+      `Pedido de recuperação de senha recebido: ${token}`,
+    );
   }
 }
 
