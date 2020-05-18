@@ -4,6 +4,7 @@ import {
   UsersRoutes,
   SessionsRoutes,
   PasswordRoutes,
+  ProfileRouters,
 } from '@modules/users/infra/http/routes';
 import { AppointmentsRoutes } from '@modules/appointments/infra/http/routes';
 
@@ -13,5 +14,6 @@ routes.use('/users', UsersRoutes);
 routes.use('/sessions', SessionsRoutes);
 routes.use('/appointments', AppointmentsRoutes);
 routes.use('/password', PasswordRoutes);
+routes.use('/profile', ProfileRouters);
 
 export default routes;
