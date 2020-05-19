@@ -14,6 +14,8 @@ export default class UpdateProfile {
 
     const user = await showProfileService.execute(user_id);
 
+    delete user.password;
+
     return response.json(user);
   }
 

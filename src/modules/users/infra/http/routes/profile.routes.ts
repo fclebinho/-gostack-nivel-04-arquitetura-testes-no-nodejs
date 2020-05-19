@@ -8,6 +8,7 @@ export const profileRouter = Router();
 const profileController = new UpdateProfileController();
 
 profileRouter.use(authenticated);
+profileRouter.get('/', profileController.show);
 profileRouter.put('/', profileController.update);
 
 export default profileRouter;

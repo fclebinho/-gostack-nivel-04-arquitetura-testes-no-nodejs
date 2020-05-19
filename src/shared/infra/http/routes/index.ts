@@ -1,19 +1,23 @@
 import { Router } from 'express';
 
 import {
-  UsersRoutes,
-  SessionsRoutes,
-  PasswordRoutes,
-  ProfileRouters,
+  UsersRouter,
+  SessionsRouter,
+  PasswordRouter,
+  ProfileRouter,
 } from '@modules/users/infra/http/routes';
-import { AppointmentsRoutes } from '@modules/appointments/infra/http/routes';
+import {
+  AppointmentsRouter,
+  ProvidersRouter,
+} from '@modules/appointments/infra/http/routes';
 
 export const routes = Router();
 
-routes.use('/users', UsersRoutes);
-routes.use('/sessions', SessionsRoutes);
-routes.use('/appointments', AppointmentsRoutes);
-routes.use('/password', PasswordRoutes);
-routes.use('/profile', ProfileRouters);
+routes.use('/appointments', AppointmentsRouter);
+routes.use('/providers', ProvidersRouter);
+routes.use('/users', UsersRouter);
+routes.use('/sessions', SessionsRouter);
+routes.use('/password', PasswordRouter);
+routes.use('/profile', ProfileRouter);
 
 export default routes;
