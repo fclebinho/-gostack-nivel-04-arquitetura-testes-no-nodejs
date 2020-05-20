@@ -3,8 +3,6 @@ import 'reflect-metadata';
 import { AppointmentRepositoryFake } from '@modules/appointments/repositories';
 import { ProvidersMonthAvailability } from '@modules/appointments/services';
 
-import { ApplicationError } from '@shared/errors/application-error';
-
 let appointmentRepositoryFake: AppointmentRepositoryFake;
 let providersMonthAvailabilityListService: ProvidersMonthAvailability;
 
