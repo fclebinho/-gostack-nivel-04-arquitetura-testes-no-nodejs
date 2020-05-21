@@ -2,17 +2,17 @@ import 'reflect-metadata';
 
 import { AppointmentCreateService } from '@modules/appointments/services';
 import { AppointmentRepositoryFake } from '@modules/appointments/repositories';
+import { NotificationsRepositoryFake } from '@modules/notifications/repositories';
 
 import { ApplicationError } from '@shared/errors/application-error';
 
-let appointmentRepository: AppointmentRepositoryFake;
 let appointmentCreateService: AppointmentCreateService;
 
 describe('AppointmentCreate', () => {
   beforeEach(() => {
-    appointmentRepository = new AppointmentRepositoryFake();
     appointmentCreateService = new AppointmentCreateService(
-      appointmentRepository,
+      new AppointmentRepositoryFake(),
+      new NotificationsRepositoryFake(),
     );
   });
 

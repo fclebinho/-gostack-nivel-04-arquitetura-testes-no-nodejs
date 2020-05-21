@@ -1,15 +1,15 @@
 import 'reflect-metadata';
 
 import { AppointmentRepositoryFake } from '@modules/appointments/repositories';
-import { ProvidersDayAvailability } from '@modules/appointments/services';
+import { ProvidersDayAvailabilityService } from '@modules/appointments/services';
 
 let appointmentRepositoryFake: AppointmentRepositoryFake;
-let providersDayAvailabilityListService: ProvidersDayAvailability;
+let providersDayAvailabilityListService: ProvidersDayAvailabilityService;
 
 describe('ProvidersDayAvailability', () => {
   beforeEach(() => {
     appointmentRepositoryFake = new AppointmentRepositoryFake();
-    providersDayAvailabilityListService = new ProvidersDayAvailability(
+    providersDayAvailabilityListService = new ProvidersDayAvailabilityService(
       appointmentRepositoryFake,
     );
   });
