@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import { SessionCreateService } from '@modules/users/services';
 
@@ -11,8 +12,6 @@ export default class SessionsController {
 
     const { user, token } = await service.execute({ email, password });
 
-    delete user.password;
-
-    return response.json({ user, token });
+    return response.json({ user: classToClass(user), token });
   }
 }
