@@ -11,7 +11,7 @@ import {
 import User from '@modules/users/infra/typeorm/entities/user';
 
 @Entity('appointments')
-export class Appointment {
+export default class Appointment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -38,5 +38,3 @@ export class Appointment {
   @UpdateDateColumn()
   updated_at: Date;
 }
-
-export default Appointment;
