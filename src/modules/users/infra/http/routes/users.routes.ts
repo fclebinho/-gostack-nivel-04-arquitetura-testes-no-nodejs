@@ -10,7 +10,7 @@ import {
 } from '@modules/users/infra/http/controllers';
 
 export const usersRouter = Router();
-const upload = multer(uploadConfig);
+const upload = multer(uploadConfig.multer);
 const controller = new UsersController();
 const avatarController = new AvatarController();
 
