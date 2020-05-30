@@ -4,6 +4,7 @@ import { IHashProvider } from '@modules/users/providers';
 import { IUsersRepository } from '@modules/users/repositories';
 import { ApplicationError } from '@shared/errors/application-error';
 import User from '@modules/users/infra/typeorm/entities/user';
+import { ICacheProvider } from '@shared/providers/cache';
 
 interface IUserRequest {
   name: string;
@@ -16,8 +17,12 @@ class UserCreate {
   constructor(
     @inject('UsersRepository')
     private repository: IUsersRepository,
+
     @inject('HashProvider')
     private hashProvider: IHashProvider,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({ name, email, password }: IUserRequest): Promise<User> {
@@ -34,6 +39,8 @@ class UserCreate {
       email,
       password: hashedPassword,
     });
+
+    await this.cacheProvider.invalidatePrefix('providers-list');
 
     return user;
   }
