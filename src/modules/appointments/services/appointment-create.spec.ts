@@ -2,6 +2,7 @@ import 'reflect-metadata';
 
 import { AppointmentCreateService } from '@modules/appointments/services';
 import { AppointmentRepositoryFake } from '@modules/appointments/repositories';
+import { CacheFakeProvider } from '@shared/providers/cache';
 import { NotificationsRepositoryFake } from '@modules/notifications/repositories';
 
 import { ApplicationError } from '@shared/errors/application-error';
@@ -13,6 +14,7 @@ describe('AppointmentCreate', () => {
     appointmentCreateService = new AppointmentCreateService(
       new AppointmentRepositoryFake(),
       new NotificationsRepositoryFake(),
+      new CacheFakeProvider(),
     );
   });
 

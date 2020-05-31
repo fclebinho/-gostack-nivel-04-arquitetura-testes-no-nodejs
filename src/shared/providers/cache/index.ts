@@ -10,3 +10,4 @@ const providers = {
 container.registerSingleton<ICacheProvider>('CacheProvider', providers.redis);
 
 export { default, default as ICacheProvider } from './models/cache';
+export * from './fakes';

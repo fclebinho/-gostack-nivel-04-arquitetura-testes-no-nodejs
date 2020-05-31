@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import { HashProviderFake } from '@modules/users/providers';
 import { UserCreateService } from '@modules/users/services';
 import { UsersRepositoryFake } from '@modules/users/repositories';
+import { CacheFakeProvider } from '@shared/providers/cache';
 
 import { ApplicationError } from '@shared/errors/application-error';
 
@@ -14,7 +15,11 @@ describe('UserCreate', () => {
   beforeEach(() => {
     hashProvider = new HashProviderFake();
     usersRepository = new UsersRepositoryFake();
-    userCreateService = new UserCreateService(usersRepository, hashProvider);
+    userCreateService = new UserCreateService(
+      usersRepository,
+      hashProvider,
+      new CacheFakeProvider(),
+    );
   });
 
   it('should be able to create a new user', async () => {

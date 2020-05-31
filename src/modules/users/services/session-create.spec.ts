@@ -1,10 +1,7 @@
 import 'reflect-metadata';
 
 import { HashProviderFake } from '@modules/users/providers';
-import {
-  SessionCreateService,
-  UserCreateService,
-} from '@modules/users/services';
+import { SessionCreateService } from '@modules/users/services';
 import { UsersRepositoryFake } from '@modules/users/repositories';
 
 import { ApplicationError } from '@shared/errors/application-error';
@@ -12,7 +9,6 @@ import { ApplicationError } from '@shared/errors/application-error';
 let hashProvider: HashProviderFake;
 let usersRepository: UsersRepositoryFake;
 let sessionCreateService: SessionCreateService;
-let userCreateService: UserCreateService;
 
 describe('SessionCreate', () => {
   beforeEach(() => {
@@ -22,11 +18,10 @@ describe('SessionCreate', () => {
       usersRepository,
       hashProvider,
     );
-    userCreateService = new UserCreateService(usersRepository, hashProvider);
   });
 
   it('should be able to authenticate', async () => {
-    await userCreateService.execute({
+    await usersRepository.create({
       name: 'John Doe',
       email: 'johndoe@mail.com',
       password: '123456',
@@ -41,7 +36,7 @@ describe('SessionCreate', () => {
   });
 
   it('should not be able to authenticate when user not exists', async () => {
-    await userCreateService.execute({
+    await usersRepository.create({
       name: 'John Doe',
       email: 'johndoe@mail.com',
       password: '123456',
@@ -56,7 +51,7 @@ describe('SessionCreate', () => {
   });
 
   it('should not be able to authenticate with wrong password', async () => {
-    await userCreateService.execute({
+    await usersRepository.create({
       name: 'John Doe',
       email: 'johndoe@mail.com',
       password: '123456',

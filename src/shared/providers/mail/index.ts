@@ -7,6 +7,8 @@ import {
 } from '@shared/providers/mail/implementations';
 import { IMailProvider } from './model';
 
+import '@shared/providers/mail-template';
+
 export const mailProviders = {
   ethereal: container.resolve(EtherealMailProvider),
   ses: container.resolve(SESMailProvider),

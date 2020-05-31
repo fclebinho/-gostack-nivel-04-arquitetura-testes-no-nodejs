@@ -2,6 +2,7 @@ import 'reflect-metadata';
 
 import { AppointmentRepositoryFake } from '@modules/appointments/repositories';
 import { ProviderAppointmentListService } from '@modules/appointments/services';
+import { CacheFakeProvider } from '@shared/providers/cache';
 
 let appointmentRepositoryFake: AppointmentRepositoryFake;
 let providerAppointmentListService: ProviderAppointmentListService;
@@ -11,6 +12,7 @@ describe('ProviderAppointmentList', () => {
     appointmentRepositoryFake = new AppointmentRepositoryFake();
     providerAppointmentListService = new ProviderAppointmentListService(
       appointmentRepositoryFake,
+      new CacheFakeProvider(),
     );
   });
 
